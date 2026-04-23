@@ -1,5 +1,5 @@
 
-# TeamCharlieNSCC
+# NSCC Capstone Project on Environment & Climate Analytics by TeamCharlie
 
 ## Description
 This repository contains deliverables and source code for Team Charlie's NSCC project.
