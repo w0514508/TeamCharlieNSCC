@@ -12,7 +12,7 @@ This folder contains cleaned and processed monthly precipitation data prepared f
 - Time coverage: 1944–2007
 - Variable: Total Precipitation (mm)
 
-- - Station: Sydney (NS)
+- Station: Sydney (NS)
 - Time coverage: 1940–2012
 - Variable: Total Precipitation (mm)
 
