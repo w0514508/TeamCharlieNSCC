@@ -50,6 +50,19 @@ The output of this notebook is a cleaned precipitation fact table used for Power
 
 ---
 
+### 🌡️ Monthly_Temperature.ipynb
+
+- **Description:** Python notebook used to process and structure monthly temperature data at the station level.
+- **Purpose:** Transforms raw temperature data into a clean, analysis-ready dataset.
+- **Output:** Generates `monthly_temperature_by_station.csv`.
+- **Key Steps:**
+  - Data cleaning and formatting  
+  - Construction of Year / Month / YearMonth structure  
+  - Calculation of mean monthly temperature (`MeanMonthlyTemp_C`)  
+- **Notes:** Acts as a preprocessing step; results are later integrated into Power BI for analysis.
+
+---
+
 ### **Script for raw data download.ipynb**
 Utility notebook used to download raw climate data files from Environment and Climate Change Canada.
 
