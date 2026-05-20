@@ -147,7 +147,7 @@ Understand how temperature patterns have changed in Atlantic Canada over the pas
 - Pandas EDA
 - Temperature anomaly calculation
 - Linear / polynomial regression
-- Short‑term ARIMA forecasting
+- Short‑term ARIMA/SARIMA forecasting
 
 ---
 
