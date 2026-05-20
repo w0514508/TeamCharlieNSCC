@@ -1,105 +1,186 @@
-# Danielle — Precipitation and Extreme Events Analysis
+# 🌦️ Climate Analysis Dashboard — Atlantic Canada
 
-## Overview
+## 📊 Project Overview
 
-This folder contains the datasets, documentation, and analytical artefacts developed for the **Precipitation and Extreme Weather Events** component of the Atlantic Canada climate project.
+This project analyzes precipitation trends and climate-related variables in Atlantic Canada, with the goal of providing insights that support decision-making in areas such as planning, risk management, and operations.
 
-The focus of this work is on **climate-scale patterns**, using aggregated precipitation data and event-based definitions of extreme weather to support exploratory analysis and visualization.
-
-The analytical outputs are designed to be consumed through an individual Power BI model (PBIX), which will later be combined with the rest of the team’s work at the dashboard level.
+The analysis integrates multiple environmental datasets to explore how precipitation behaves over time and how it relates to other indicators such as temperature, extreme weather events, and emissions.
 
 ---
 
-## Analytical Scope
+## 🎯 Objective
 
-The datasets and analysis in this folder focus on:
+The primary objective of this project is to:
 
-- **Monthly precipitation patterns**
-  - Long-term variability
-  - Frequency-based indicators (e.g., wet months per year)
-
-- **Extreme weather events**
-  - Extreme Wind
-  - Heavy Precipitation
-  - Identified using station-specific 95th percentile (P95) thresholds
-
-Daily climate observations are used upstream during data processing but **are not included** in the final analytical datasets.
+- Analyze long-term precipitation trends  
+- Identify changes in variability and extreme events  
+- Evaluate relationships between precipitation and other environmental indicators  
+- Provide a clear and actionable interpretation of climate patterns  
 
 ---
 
-## Final Datasets
+## 📦 Datasets Used
 
-The following datasets are considered **final and cleaned** for analysis:
+This project integrates multiple datasets, each documented separately:
 
-### ✅ Fact_Precipitation_Monthly
-- Monthly aggregated precipitation totals (mm)
-- One row per station per month
-- Used for long-term precipitation frequency and trend analysis
+- 🌧️ **Precipitation (Monthly)**  
+- 🌡️ **Temperature (Monthly)**  
+- 🌪️ **Extreme Events (Event-level)**  
+- 📈 **Extreme Events (EDA Output — Python)**  
 
-📄 Documentation:  
-- `Data Dictionary_Precipitation_sources.md`
+Each dataset includes detailed data dictionaries:
 
----
-
-### ✅ Fact_Extreme_Events
-- Event-level dataset containing extreme wind and heavy precipitation events
-- Extreme events are defined using **station-specific P95 thresholds**
-- Event magnitude and threshold interpretation depend on `EventType`
-
-📄 Documentation:  
-- `Data Dictionary — Extreme Events.md`
+- Data Dictionary — Precipitation  
+- Data Dictionary — Temperature  
+- Data Dictionary — Extreme Events  
+- Data Dictionary — Extreme Events (EDA Output)  
 
 ---
 
-## Shared Dimensions and Conceptual Model
+## 🧱 Data Model
 
-Several dimensions (e.g., Calendar, Station, Region) are shared across multiple datasets and analytical areas within the project.
+The model follows a **star schema structure**, integrating multiple fact tables:
 
-A **conceptual overview of the climate and environmental star schema**, including shared dimensions and their relationship to different fact tables, is documented separately.
+### Fact Tables:
+- `Fact_Precipitation_Monthly`
+- `Fact_Temperature_Monthly`
+- `Fact_Extreme_Events`
+- `ExtremeEvents_Per_Year` (EDA output)
 
-📄 Documentation:  
-- `Data Dictionary_Climate & Environmental Star Schema.md`
+### Dimension Tables:
+- `Dim_Calendar`
+- `Dim_Station`
 
-🖼️ Visual reference:  
-- `Draft_Star_schema.png`
+The model is designed to support:
+- Time-based analysis  
+- Cross-variable comparison  
+- Regional aggregation  
 
-> **Note:**  
-> The star schema and associated data dictionary represent a **high-level conceptual architecture** of the project.  
-> Not all tables shown in the schema appear in this individual analytical model. Each team member’s PBIX focuses on a subset of facts and dimensions relevant to their analysis.
+A conceptual schema is documented in:
 
----
-
-## Power BI Model (PBIX)
-
-The PBIX file associated with this work contains:
-- The analytical data model
-- DAX measures
-- Visualizations supporting precipitation and extreme event findings
-
-The PBIX relies exclusively on the cleaned datasets documented above.  
-No additional datasets are introduced at the visualization layer.
+- 📘 Data Dictionary — Climate & Environmental Star Schema  
 
 ---
 
-## Folder Contents
+## 🧠 Analytical Approach
 
-- `Data Dictionary_Precipitation_sources.md`
-- `Data Dictionary — Extreme Events.md`
-- `Data Dictionary_Conceptual Climate & Environmental Star Schema.md`
-- `Conceptual_Climate_Star_Schema.png`
-- Scrum notes documenting weekly progress
-- README (this file)
+The project is structured around three main analytical dimensions:
+
+### 1. Trend & Growth
+- Long-term increase in precipitation
+- Identification of structural changes over time
+
+### 2. Variability & Uncertainty
+- High monthly variability (~57%)
+- Increased unpredictability in precipitation patterns
+
+### 3. Relationships Across Variables
+- Weak or inconsistent relationships between:
+  - Precipitation and temperature  
+  - Precipitation and GHG emissions  
+  - Precipitation and air quality  
 
 ---
 
-## Intended Use
+## 🌪️ Extreme Events Analysis
 
-This documentation supports:
-- Dataset consolidation at the team level
-- Review by instructors and project stakeholders
-- Maintenance and handoff of analytical assumptions and definitions
+Extreme weather events are analyzed across two layers:
 
-It is not intended as:
-- A complete documentation of the Power BI interface
-- A visual or presentation script
-- A predictive or forecasting specification
+### Observed Data
+- Event-level dataset  
+- Annual frequency of extreme events  
+
+### EDA Output (Python)
+- Smoothed trend (fitted series)  
+- Used for comparing observed vs long-term patterns  
+
+Power BI is used strictly as a visualization layer for these results.
+
+---
+
+## 🧩 Analytical Summary Layer
+
+A manually created summary table integrates key findings across provinces.
+
+This layer:
+
+- Combines multiple variables into a simplified structure  
+- Highlights regional differences  
+- Shows that relationships across variables are **not consistent**  
+
+This table is documented as:
+
+- 📘 Analytical Summary Table — Climate Relationships  
+
+---
+
+## 📐 Measures & Calculations
+
+All analytical calculations are implemented using explicit DAX measures, including:
+
+- Aggregation measures (totals and averages)  
+- Trend indicators (YoY change, long-term trends)  
+- Variability metrics  
+- Index-based comparisons  
+- Correlation analysis  
+
+Full documentation available in:
+
+- 📘 DAX Measure Dictionary — Precipitation, Temperature & Extreme Events  
+
+---
+
+## ⚠️ Assumptions & Limitations
+
+- Climate relationships are **non-linear and multi-factor**  
+- No causal relationships are assumed between variables  
+- Data is aggregated at monthly or yearly levels  
+- Temperature data reflects averages, not extremes  
+- Fitted trends from EDA are descriptive, not predictive  
+
+---
+
+## 💡 Key Insights
+
+- Precipitation in Atlantic Canada is **increasing over time**  
+- Extreme events are **more frequent and more intense**  
+- Precipitation shows **high variability (~57%)**, indicating instability  
+- There is **no consistent relationship** between precipitation and:
+  - Temperature  
+  - GHG emissions  
+  - Air quality  
+
+---
+
+## 🧰 Tools & Technologies
+
+- **Power BI** — Dashboard and data modeling  
+- **DAX** — Analytical calculations  
+- **Python (EDA)** — Trend fitting and data exploration  
+- **GitHub** — Documentation and version control  
+
+---
+
+## 👥 Team
+
+This project was developed collaboratively, with each member focusing on a specific analytical component:
+
+- Precipitation & Extreme Events  
+- Temperature & Air Quality  
+- GHG Emissions  
+
+The final dashboard integrates all components into a unified analytical view.
+
+---
+
+## ✅ Conclusion
+
+This analysis shows that precipitation patterns in Atlantic Canada are:
+
+- Increasing  
+- More variable  
+- More extreme  
+
+At the same time, these patterns are **not explained by a single environmental factor**, highlighting the complexity of climate systems and the importance of multi-variable analysis.
+
+---
