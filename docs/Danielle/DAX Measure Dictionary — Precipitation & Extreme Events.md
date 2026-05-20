@@ -1,4 +1,4 @@
-# 📘 DAX Measure Dictionary — Precipitation & Extreme Events
+# 📘 DAX Measure Dictionary — Precipitation, Temperature & Extreme Events
 
 This document describes all DAX measures used in the Power BI model.  
 Measures are documented with a focus on **analytical intent**, **data grain**, and **appropriate usage**, rather than DAX syntax.
@@ -45,6 +45,68 @@ Measures are documented with a focus on **analytical intent**, **data grain**, a
 
 ---
 
+### `Avg Precip per Station`
+- **Description:** Average precipitation calculated per station, then averaged across all stations.
+- **Grain:** Station-level aggregated to monthly or annual context.
+- **Purpose:** Ensures equal contribution of each station in the analysis.
+- **Notes:** Avoids bias caused by uneven station distribution.
+
+---
+
+### `Total Precip per Year`
+- **Description:** Total precipitation aggregated at the yearly level.
+- **Grain:** Annual.
+- **Purpose:** Supports cross-year comparisons and trend evaluation.
+- **Notes:** Overrides lower-level filters to preserve full yearly context.
+
+---
+
+### `Precip Index (Per Station)`
+- **Description:** Indexed precipitation measure using 1995 as the base year (index = 100).
+- **Grain:** Monthly or annual.
+- **Purpose:** Enables comparison of relative changes in precipitation over time.
+- **Interpretation:** Values above 100 indicate increases relative to the base year.
+
+---
+
+---
+
+## 🌧️ Precipitation — Trend & Variability
+
+### `YoY Precip Change`
+- **Description:** Year-over-year percentage change in total precipitation.
+- **Grain:** Annual.
+- **Purpose:** Captures short-term fluctuations in precipitation patterns.
+
+---
+
+### `YoY Precip Change (Adj)`
+- **Description:** Year-over-year change in average precipitation per station using explicit year context.
+- **Grain:** Annual.
+- **Purpose:** Provides a more controlled and stable comparison than standard time intelligence functions.
+- **Notes:** Less sensitive to visual-level filtering.
+
+---
+
+### `Precip Trend %`
+- **Description:** Long-term percentage change in precipitation over a 10-year period.
+- **Grain:** Annual.
+- **Purpose:** Identifies structural trends rather than short-term variability.
+
+---
+
+### `Monthly Precipitation Variability`
+- **Description:** Relative variability of precipitation measured using the coefficient of variation.
+- **Grain:** Monthly.
+- **Purpose:** Quantifies how unstable or unpredictable precipitation levels are over time.
+- **Interpretation:** Higher values indicate greater variability and uncertainty.
+
+---
+
+---
+
+## 🌧️ Precipitation — Frequency Indicators
+
 ### `Wet Month Flag (Regional)`
 - **Description:** Flags whether a calendar month qualifies as a wet month.
 - **Logic:** Monthly precipitation exceeds the long-term monthly baseline.
@@ -56,8 +118,10 @@ Measures are documented with a focus on **analytical intent**, **data grain**, a
 ### `Wet Months per Year`
 - **Description:** Counts the number of wet months within each calendar year.
 - **Grain:** Annual (derived by explicitly constructing monthly context).
-- **Purpose:** Converts precipitation magnitude into an interpretable regime indicator.
+- **Purpose:** Converts precipitation magnitude into an interpretable frequency indicator.
 - **Notes:** Monthly grain is explicitly enforced to ensure correct evaluation context.
+
+---
 
 ---
 
@@ -86,37 +150,46 @@ Measures are documented with a focus on **analytical intent**, **data grain**, a
 
 ---
 
+---
+
 ## 🌪️ Extreme Events — By Type
 
 ### `Extreme Precipitation Events`
-- **Description:** Counts extreme events classified as Heavy Precipitation.
+- **Description:** Counts extreme events classified as heavy precipitation.
 - **Grain:** Event-level.
 - **Purpose:** Analyzes the frequency of precipitation-driven extreme events.
-- **Usage:** Supports comparison with wind-related extremes.
 
 ---
 
 ### `Extreme Wind Events`
-- **Description:** Counts extreme events classified as Extreme Wind.
+- **Description:** Counts extreme events classified as extreme wind.
 - **Grain:** Event-level.
 - **Purpose:** Analyzes the frequency of wind-driven extreme events.
-- **Usage:** Complements precipitation extremes and overall trends.
 
 ---
 
 ### `Total Extreme Events by Type`
-- **Description:** Total number of extreme events within the current EventType context.
+- **Description:** Total number of extreme events within the current event type context.
 - **Grain:** Event-level.
-- **Purpose:** Absolute composition analysis by extreme event category.
-- **Important:** Meaningful only when EventType is present in the visual or filter context.
+- **Purpose:** Absolute composition analysis by category.
+- **Important:** Requires event type to be present in the visual.
 
 ---
 
 ### `Extreme Event Share (%)`
 - **Description:** Proportion of extreme events by event type.
-- **Logic:** Event count in current EventType context divided by total extreme event count.
-- **Purpose:** Composition analysis (e.g., Wind vs Precipitation).
-- **Important:** Requires EventType to be present; otherwise returns 100% by definition.
+- **Logic:** Event count in current context divided by total event count.
+- **Purpose:** Composition analysis (e.g., precipitation vs wind events).
+
+---
+
+### `Pct Province Extreme Events`
+- **Description:** Share of total extreme events attributed to each province.
+- **Grain:** Province-level.
+- **Purpose:** Identifies regional concentration of extreme events.
+- **Interpretation:** Higher values indicate greater exposure to extreme conditions.
+
+---
 
 ---
 
@@ -125,24 +198,53 @@ Measures are documented with a focus on **analytical intent**, **data grain**, a
 ### `Total Extreme Events (Observed)`
 - **Description:** Observed annual extreme event counts generated during Python EDA.
 - **Source:** `ExtremeEvents_Per_Year` table.
-- **Purpose:** Baseline series representing raw, observed event frequencies.
-- **Notes:** No aggregation or modelling performed in Power BI.
+- **Purpose:** Baseline series representing raw observed frequencies.
+- **Notes:** No modelling performed in Power BI.
 
 ---
 
 ### `Extreme Events Trend (Fitted)`
 - **Description:** Fitted trend values generated during Python EDA.
 - **Source:** `ExtremeEvents_Per_Year` table.
-- **Purpose:** Visual comparison between observed event counts and long-term trend.
-- **Important:** Power BI performs no modelling; it only visualizes EDA outputs.
+- **Purpose:** Enables comparison between observed events and long-term trends.
+- **Important:** Power BI acts only as visualization layer.
+
+---
+
+---
+
+## 🌡️ Temperature Measures
+
+### `Avg Monthly Temperature (°C)`
+- **Description:** Average monthly temperature across all locations.
+- **Grain:** Monthly.
+- **Purpose:** Provides baseline temperature context for comparative analysis.
+
+---
+
+### `Temp Index`
+- **Description:** Indexed temperature using a base year (1995 = 100).
+- **Grain:** Monthly or annual.
+- **Purpose:** Enables comparison of relative temperature changes over time.
+- **Interpretation:** Values above 100 indicate increases relative to the base year.
+
+---
+
+### `Correlation Temp vs Precip`
+- **Description:** Statistical correlation between temperature and precipitation indices.
+- **Grain:** Annual.
+- **Purpose:** Measures the strength and direction of association between variables.
+- **Interpretation:** Values near zero indicate weak or no relationship.
+- **Limitations:** Correlation does not imply causation.
+
+---
 
 ---
 
 ## ✅ General Notes
 
-- All measures are **explicit**, not implicit visual aggregations.
-- Measures respect the **grain of their underlying fact tables**.
-- Power BI is used as a **consumption and integration layer**, not for analytical modelling.
-- Predictive or causal modelling is intentionally handled upstream in Python.
-
-``
+- All measures are **explicit**, not implicit aggregations.
+- Measures respect the **grain of their underlying datasets**.
+- Power BI is used as a **consumption and integration layer**, not for statistical modelling.
+- Predictive or causal modelling is handled upstream in Python.
+- Results should be interpreted in a **regional and multi-factor climate context**, not as isolated relationships.
