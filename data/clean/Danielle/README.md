@@ -1,69 +1,144 @@
-# Clean Data — Danielle
+# 📁 Clean Data — Danielle
 
-## Overview
+This folder contains the cleaned and prepared datasets used in the Climate Analysis dashboard.
 
-This folder contains the **final cleaned datasets and Power BI model** developed for the analysis of **precipitation patterns and extreme weather events** across Atlantic Canada.
-
-All files in this directory are considered **analysis-ready** and are used directly in the final PBIX model and supporting exploratory analysis.
+All datasets are structured to support integration in a Power BI star schema, enabling consistent time-series analysis across precipitation, temperature, and extreme events.
 
 ---
 
-## Contents
-
-### ✅ Fact_Extreme_Events_All.csv
-Event-level dataset containing identified extreme weather events, including:
-- Extreme Wind events
-- Heavy Precipitation events
-
-Extreme events are defined using **station-specific 95th percentile (P95) thresholds**, ensuring that extremes are relative to local historical conditions.
-
-Each row represents a single extreme event occurrence.
-
-📄 Detailed documentation:
-- See `docs/Danielle/Data Dictionary — Extreme Events.md`
+## 📊 Available Datasets
 
 ---
 
-### ✅ fact_precipitation.csv
-Monthly aggregated precipitation dataset derived from daily climate observations.
+### 🌧️ `monthly_precipitation_by_station.csv`
 
-- One row per station per month
-- Precipitation values expressed in millimeters (mm)
-- Designed for climate-scale analysis rather than daily variability
+#### Description
+Monthly precipitation observations at the station level.
 
-This dataset is used to analyze:
-- Long-term precipitation patterns
-- Frequency-based indicators (e.g., wet months per year)
+#### Granularity
+- Station × Month
 
-📄 Detailed documentation:
-- See `docs/Danielle/Data Dictionary_Precipitation_sources.md`
+#### Key Fields
+- Climate ID  
+- Date / Year / Month  
+- Precipitation (mm)  
 
----
-
-### ✅ Precipitation_ExtremeEvents_Final.pbix
-Power BI model containing:
-- The analytical data model
-- DAX measures
-- Visualizations supporting the final findings on precipitation frequency and extreme events
-
-The PBIX relies exclusively on the cleaned datasets in this folder and does not introduce additional data sources.
+#### Purpose
+- Core dataset for precipitation analysis  
+- Supports:
+  - Monthly trends  
+  - Annual aggregation  
+  - Variability and anomaly analysis  
 
 ---
 
-## Notes
+### 🌡️ `monthly_temperature_by_station.csv`
 
-- Daily climate data is used upstream during data processing but is not included in this folder.
-- No forecasting or predictive modeling is performed in this PBIX.
-- This folder is intended to support final analysis, review, and presentation.
+#### Description
+Monthly average temperature recorded for each weather station.
+
+#### Granularity
+- Station × Month
+
+#### Key Fields
+- Climate ID  
+- Year  
+- Month  
+- YearMonth  
+- MeanMonthlyTemp_C  
+
+#### Purpose
+- Provides temperature context for climate analysis  
+- Supports:
+  - Temperature trend analysis  
+  - Index calculations (base year comparison)  
+  - Correlation with precipitation  
+
+#### Notes
+- Data reflects **mean monthly temperature**, not extremes  
+- Used primarily for comparative analysis, not standalone risk assessment  
 
 ---
 
-## Relationship to Project Documentation
+### 🌪️ `extreme_events.csv`
 
-Conceptual documentation, data dictionaries, and the high-level star schema are maintained separately in:
-- docs/Danielle/
+#### Description
+Event-level dataset containing records of extreme weather events.
 
-That directory provides the **conceptual and architectural context** for the cleaned datasets and PBIX stored in this folder, including:
-- Dataset-level data dictionaries
-- Definitions of shared dimensions
-- A conceptual overview of the climate and environmental star schema used across the project
+#### Granularity
+- Event-level
+
+#### Key Fields
+- Event Type  
+- Date / Year  
+- Location / Province  
+
+#### Purpose
+- Measures frequency of extreme events  
+- Supports:
+  - Annual trend analysis  
+  - Event type breakdown (precipitation vs wind)  
+  - Regional comparisons  
+
+---
+
+### 📈 `ExtremeEvents_Per_Year.csv`
+
+#### Description
+Aggregated and model-enhanced dataset generated during Python EDA.
+
+#### Granularity
+- Year
+
+#### Key Fields
+- Year  
+- EventCount (Observed)  
+- Fitted (Trend)
+
+#### Purpose
+- Compare observed extreme events with fitted trend  
+- Provide smoothed representation of long-term behavior  
+
+#### Important
+- Fitted values are:
+  - Generated in Python (not Power BI)  
+  - Based on historical trends only  
+  - Intended for visualization, not prediction  
+
+---
+
+## 🧠 Data Integration
+
+These datasets are integrated into the Power BI model through:
+
+- `Dim_Calendar` → time alignment  
+- `Dim_Station` → geographic alignment  
+
+This enables:
+
+- Cross-variable comparison (temperature vs precipitation)  
+- Trend analysis across time  
+- Regional aggregation  
+
+---
+
+## ⚠️ Assumptions & Limitations
+
+- Data is primarily **monthly or yearly aggregated**
+- Temperature reflects **mean values only**
+- Extreme events data:
+  - Captures frequency, not severity  
+- Fitted trend is:
+  - Descriptive  
+  - Not predictive  
+
+---
+
+## ✅ Usage
+
+These datasets are used to:
+
+- Build analytical measures (DAX)
+- Support visualizations in Power BI
+- Provide context for climate variability and risk assessment
+
