@@ -35,6 +35,13 @@ This file represents a preprocessing step between raw daily climate data and the
 This dataset is not used directly in presentation or visualization and exists to support validation and traceability.
 
 ---
+### 🌡️ dim_temp_clean.zip
+
+- **Description:** Raw cleaned dataset containing temperature records at the station level.
+- **Granularity:** Station-level observations (pre-aggregation).
+- **Purpose:** Source dataset used to create the structured monthly temperature table.
+- **Output:** Used to generate `monthly_temperature_by_station.csv`.
+- **Notes:** Contains intermediate temperature data and is not used directly in the final Power BI model.
 
 ## Notes
 
@@ -47,7 +54,8 @@ This dataset is not used directly in presentation or visualization and exists to
 ## Relationship to Clean Data
 
 Processed datasets generated from these raw inputs include:
-- Monthly precipitation fact tables
-- Extreme weather events fact tables
+- Monthly precipitation fact table
+- Monthly temperature fact table
+- Extreme weather events fact table
 
 Refer to `data/clean/Danielle/README.md` for details on cleaned datasets and analytical usage.
