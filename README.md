@@ -74,6 +74,15 @@ This project uses authoritative, publicly available datasets published by federa
   - https://search.open.canada.ca/opendata/?search_text=air+quality
   - https://data-donnees.az.ec.gc.ca/data/air/monitor/national-air-pollution-surveillance-naps-program?lang=en
 
+### Wildfire data 
+
+- **Wildfire data-  Statistics are shown for all reported fires **
+- The Canadian National Fire Database (CNFDB) is a collection of forest fire data from various sources; these data include fire locations (point data) and fire perimeters (polygon data) as provided by Canadian fire management agencies (provinces, territories, and Parks Canada).
+- The National Burned Area Composite (NBAC) is a GIS database and system that calculates the area of forest burned on a national scale for each year since 1972. 
+  The Canadian National Fire Database (CNFDB)
+  SRC: NFDB_point_20250519 - https://cwfis.cfs.nrcan.gc.ca/datamart/metadata/nfdbpnt
+  [https://www.canada.ca/en/environment-climate-change/services/air-quality-health-index.html](https://cwfis.cfs.nrcan.gc.ca/en/fire-history)
+  
 ---
 
 ## ETL & Data Preparation Overview
@@ -138,9 +147,8 @@ Understand how temperature patterns have changed in Atlantic Canada over the pas
 ### Key Visuals & Metrics
 - KPI Card: Average Annual Temperature (Year & Station slicers)
 - Line Chart: Long‑term temperature trend
-- Heatmap Calendar: Daily temperature anomalies
-- Bar Chart: Year‑over‑year temperature change
-- Forecast: 5‑year average annual temperature forecast for selected NS station
+- Bar Chart: Year‑over‑year temperature change/decade
+- Forecast: 5‑year average annual temperature forecast for Atlantic Canada
 - Anomaly Chart: Deviation from 30‑year baseline with confidence bands
 
 ### Analytics
